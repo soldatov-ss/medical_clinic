@@ -1,8 +1,8 @@
 from django.db import models
+from slugify import slugify
 
 
-class Specialist(models.Model):
-
+class Doctor(models.Model):
     class Meta:
         verbose_name = "Лікар"
         verbose_name_plural = "Лікарі"
@@ -18,9 +18,13 @@ class Specialist(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.slug = slugify(f'{self.name} {self.number_of_sort}')
+        super().save(*args, **kwargs)
+
 
 class Specialty(models.Model):
-
     class Meta:
         verbose_name = "Напрямок"
         verbose_name_plural = "Напрямки"
@@ -32,3 +36,7 @@ class Specialty(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.slug = slugify(f'{self.name} {self.number_of_sort}')
+        super().save(*args, **kwargs)

@@ -9,10 +9,15 @@ class SpecialtySerializer(serializers.ModelSerializer):
         fields = ('name', 'number_of_sort')
 
 
-class SpecialistSerializer(serializers.ModelSerializer):
+class DoctorsSerializer(serializers.ModelSerializer):
     specialties = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
 
     class Meta:
         model = Specialist
         fields = ('name', 'number_of_sort', 'specialties', 'description', 'date_birth', 'work_experience')
 
+
+class EditDoctorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Specialist
+        fields = ('name', 'number_of_sort', 'specialties', 'description', 'date_birth', 'work_experience')
