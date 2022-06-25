@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from .models import Specialist, Specialty
+from .models import Doctor, Specialty
 
 
-@admin.register(Specialist)
-class SpecialistAdmin(admin.ModelAdmin):
+@admin.register(Doctor)
+class DoctorsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name', 'number_of_sort')}
     list_display = ("id", "number_of_sort", "name", 'get_specialties')
     list_filter = ('name', 'number_of_sort', 'specialties__name', 'date_birth', 'work_experience')

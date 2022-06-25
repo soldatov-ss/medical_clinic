@@ -4,7 +4,7 @@ from rest_framework import generics
 
 from clinic_site.models import Doctor, Specialty
 from .serialisers import SpecialtySerializer, DoctorsSerializer, EditDoctorSerializer
-from .service import SpecialistFilter
+from .service import DoctorFilter
 
 
 ###########
@@ -15,7 +15,7 @@ class DoctorsListView(generics.ListAPIView):
     serializer_class = DoctorsSerializer
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     search_fields = ['name', 'specialties__name']
-    filterset_class = SpecialistFilter
+    filterset_class = DoctorFilter
     ordering_fields = ['work_experience', 'date_birth']
 
 
@@ -49,8 +49,9 @@ class EditSpecialtyView(generics.RetrieveUpdateDestroyAPIView):
 class SpecialtiesListView(generics.ListAPIView):
     queryset = Specialty.objects.all()
     serializer_class = SpecialtySerializer
-    filter_backends = [filters.SearchFilter]
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     search_fields = ['name']
+    ordering_fields = ['number_of_sort']
 
 
 class CreateSpecialtyView(generics.CreateAPIView):
