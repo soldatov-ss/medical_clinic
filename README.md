@@ -26,6 +26,7 @@ python manage.py migrate
 ```
 Start the project
 ``` 
+python manage.py collectstatic
 python manage.py runserver
 ```
 
